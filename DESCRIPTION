@@ -15,3 +15,5 @@ LazyData: true
 Imports: 
     grid,
     rlang
+Suggests: 
+    ragg
