@@ -18,13 +18,43 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+`chatterbox` lets you make figures of text messages fairly painlessly.
+
 ```{r}
 library(chatterbox)
+```
 
+A basic conversation is included to get you started:
+
+```{r}
+conversation
+```
+
+Minimally, all you need to do is supply the data and who you want to be on the right (`me`):
+
+```{r}
 file <- knitr::fig_path('.png')
-ragg::agg_png(file, width = 1000, height = 500, res = 300)
+ragg::agg_png(file, width = 1500, height = 700, res = 200)
 conversation |>
   chat(me = "Alice")
+dev.off()
+knitr::include_graphics(file)
+```
+You can also change the theme (with the `theme` argument -- either "light" or "dark") or make your own (with `make_theme`):
+
+```{r}
+fiery <- make_theme(
+  text_me = "white",
+  text_you = "white",
+  fill_me = "#ea7434",
+  fill_you = "#c74956",
+  bg =  "#f6a50b"
+)
+
+file <- knitr::fig_path('.png')
+ragg::agg_png(file, width = 1500, height = 700, res = 200)
+conversation |>
+  chat(me = "Alice", theme = fiery)
 dev.off()
 knitr::include_graphics(file)
 ```
