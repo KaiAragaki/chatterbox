@@ -19,13 +19,34 @@ msgGrob <- function(text,
   if (!is.list(theme)) {
     theme <- get_theme(theme)
   }
-  h_pad <- grid::stringWidth("MM")
-  v_pad <- grid::stringHeight("\n") * 0.6
+
+  label <- str_wrap(text, width = max_char_width)
+  # Dimensions
+
+  h_pad <- grid::grobWidth(
+    grid::textGrob("MM", gp = grid::gpar(fontsize = font_size))
+  )
+  v_pad <- grid::grobHeight(
+    grid::textGrob("\n", gp = grid::gpar(fontsize = font_size))
+  ) * 0.6
+
+  label_width <- grid::grobWidth(
+    grid::textGrob(label, gp = grid::gpar(fontsize = font_size))
+  )
+  label_height <- grid::grobHeight(
+    grid::textGrob(label, gp = grid::gpar(fontsize = font_size))
+  )
+
+  xh <- grid::grobWidth(
+    grid::textGrob("x", gp = grid::gpar(fontsize = font_size))
+  ) * 0.75
+
+  # Not really dependent on font size - mostly just a pixel thing
+  fudge <- grid::stringWidth(".")
 
   fill_col <- ifelse(is_me, theme$fill_me, theme$fill_you)
   text_col <- ifelse(is_me, theme$text_me, theme$text_you)
   bg <- theme$bg
-  label <- str_wrap(text, width = max_char_width)
   has_newline <- grepl("\n", label)
   # FIXME there's gotta be a better way to do this
   vpname <- paste0(text, round(runif(1), 5))
@@ -35,15 +56,15 @@ msgGrob <- function(text,
     name = vpname,
     x = ifelse(is_me, 0.95, 0.05),
     y = 0.5,
-    width = grid::stringWidth(label) + h_pad,
-    height = grid::stringHeight(label) + v_pad,
+    width = label_width + h_pad,
+    height = label_height + v_pad,
     just = ifelse(is_me, "right", "left")
   )
   r <- ifelse(has_newline, 1.5, 1.7)
-  xh <- grid::stringHeight("x") * 0.75
   body <- grid::roundrectGrob(
     vp = vpname,
     r = r * xh,
+    height = label_height + v_pad,
     gp = grid::gpar(fill = fill_col, col = NA),
   )
 
@@ -58,7 +79,6 @@ msgGrob <- function(text,
     x = tail_x + xh / (2 * ifelse(is_me, 1, -1)), y = xh / 2, r = xh / 2,
     gp = grid::gpar(fill = bg, col = NA)
   )
-  fudge <- grid::stringWidth(".")
   tail_side_negative <- grid::rectGrob(
     vp = vpname,
     x = tail_x + ((xh / 2) + fudge / 2) * ifelse(is_me, 1, -1),
