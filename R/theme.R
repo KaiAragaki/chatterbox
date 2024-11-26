@@ -39,7 +39,7 @@ make_theme <- function(text_me = "white",
                        fill_me = "#218aff",
                        fill_you = "gray80",
                        bg = "white") {
-  stopifnot(all(are_colors(text_me, text_you, fill_me, fill_you, bg)))
+  stopifnot(all(are_colors(c(text_me, text_you, fill_me, fill_you, bg))))
 
   list(
     text_me = text_me,
