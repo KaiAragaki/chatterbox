@@ -1,0 +1,11 @@
+Package: chatterbox
+Title: Make images of text conversations
+Version: 0.0.0.9000
+Authors@R: 
+    person("Kai", "Aragaki", , "kaiaragaki@proton.me", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: chatterbox allows for easy plotting of arbitrary text content to look like a text conversation
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
