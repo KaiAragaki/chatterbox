@@ -1,23 +1,11 @@
-get_theme <- function(theme = c("dark", "light")) {
-  theme <- rlang::arg_match(theme)
-  if (theme == "dark") {
-    theme <- list(
-      text_me = "white",
-      text_you = "white",
-      fill_me = "#218aff",
-      fill_you = "gray20",
-      bg = "#1C1C1C"
-    )
-    return(theme)
-  }
-  if (theme == "light") {
-    theme <- list(
-      text_me = "white",
-      text_you = "black",
-      fill_me = "#218aff",
-      fill_you = "gray80",
-      bg = "white"
-    )
-    return(theme)
-  }
+# Stripped down version of stringr::str_wrap
+# Trying to keep this pkg dependency light
+# If it turns out I need more functionality though I'm ok with taking on a dep
+# Do NOT export this function
+str_wrap <- function(string, width) {
+  out <- stringi::stri_wrap(
+    string,
+    width = width, whitespace_only = TRUE, simplify = FALSE
+  )
+  vapply(out, paste0, collapse = "\n", character(1))
 }
