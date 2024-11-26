@@ -22,9 +22,9 @@ texts <- c(
 people <- c("Alice", "Alice", "Bob", "Alice", "Alice", "Bob", "Bob")
 
 conversation <- data.frame(
-  time = times,
+  message_date = times,
   text = texts,
-  person = people
+  sender_name = people
 )
 
 usethis::use_data(conversation, overwrite = TRUE)
