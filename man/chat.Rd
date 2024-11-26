@@ -27,3 +27,8 @@ An image
 \description{
 Create a figure of a text conversation
 }
+\examples{
+
+coversation |>
+  chat(me = "Alice")
+}

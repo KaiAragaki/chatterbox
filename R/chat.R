@@ -9,6 +9,10 @@
 #' @param theme Either a list (usually made by make_theme()) or a name of a
 #'   theme
 #' @return An image
+#' @examples
+#'
+#' coversation |>
+#'   chat(me = "Alice")
 #' @export
 chat <- function(data,
                  me,
