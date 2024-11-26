@@ -25,7 +25,6 @@ chat <- function(data,
   stopifnot(me %in% data$sender_name)
   data <- data[order(data$message_date), ]
   # strwidth only deals in inches
-  font_size_in <- font_size / 72.27
   # Color should depend on service -- iMessage should be blue, SMS should be
   # green
   # 'me' will determine who's on the right
@@ -35,7 +34,10 @@ chat <- function(data,
     msgGrob,
     text = data$text,
     is_me = data$sender_name == me,
-    MoreArgs = list(theme = theme),
+    MoreArgs = list(
+      theme = theme,
+      font_size = font_size
+    ),
     SIMPLIFY = FALSE
   )
 
