@@ -1,3 +1,4 @@
+#' Create a single msg graphical object
 #' @param text The message to be displayed
 #' @param is_me Should this look like the sender or the receiver?
 #' @param max_char_width Number of characters until wrapping
@@ -75,7 +76,7 @@ msgGrob <- function(text,
     vp = vpname,
     x = (tail_x) * ifelse(is_me, 1, -1),
     y = grid::unit(0.5, units = "npc") + xh / 2,
-    just = c("right", "top"),
+    just = c(ifelse(is_me, "right", "left"), "top"),
     width = xh, height = 0.5,
     gp = grid::gpar(fill = fill_col, col = NA)
   )
