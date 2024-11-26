@@ -1,0 +1,30 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# chatterbox
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+```{r}
+library(chatterbox)
+
+file <- knitr::fig_path('.png')
+ragg::agg_png(file, width = 1000, height = 500, res = 300)
+conversation |>
+  chat(me = "Alice")
+dev.off()
+knitr::include_graphics(file)
+```
