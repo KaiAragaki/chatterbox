@@ -11,7 +11,7 @@
 #' @return An image
 #' @examples
 #'
-#' coversation |>
+#' conversation |>
 #'   chat(me = "Alice")
 #' @export
 chat <- function(data,
