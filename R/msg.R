@@ -24,7 +24,6 @@ msgGrob <- function(text,
   fill_col <- ifelse(is_me, theme$fill_me, theme$fill_you)
   text_col <- ifelse(is_me, theme$text_me, theme$text_you)
   bg <- theme$bg
-
   label <- str_wrap(text, width = max_char_width)
   # FIXME there's gotta be a better way to do this
   vpname <- paste0(text, round(runif(1), 5))
@@ -57,12 +56,28 @@ msgGrob <- function(text,
     x = tail_x + xh / (2 * ifelse(is_me, 1, -1)), y = xh / 2, r = xh / 2,
     gp = grid::gpar(fill = bg, col = NA)
   )
+  fudge <- grid::stringWidth(".")
   tail_side_negative <- grid::rectGrob(
     vp = vpname,
-    x = tail_x + xh / (2 * ifelse(is_me, 1, -1)),
+    x = tail_x + ((xh / 2) + fudge / 2) * ifelse(is_me, 1, -1),
     y = grid::unit(0.5, units = "npc") + xh / 2,
-    width = xh, height = 1,
+    width = xh + fudge, height = 1,
     gp = grid::gpar(fill = bg, col = NA)
+  )
+
+  # If a message is greater than one line tall, this fills in the 'bald spot'
+  # left due to the rounded corners of the body.
+  #
+  # It's a roundrect because nothing is pixel perfect, and a little rounding
+  # helps hide the seams
+  tail_side_positive <- grid::roundrectGrob(
+    r = grid::unit(0.3, "snpc"),
+    vp = vpname,
+    x = (tail_x) * ifelse(is_me, 1, -1),
+    y = grid::unit(0.5, units = "npc") + xh / 2,
+    just = c("right", "top"),
+    width = xh, height = 0.5,
+    gp = grid::gpar(fill = fill_col, col = NA)
   )
 
   text <- grid::textGrob(
@@ -72,7 +87,7 @@ msgGrob <- function(text,
   )
 
   msg_list <- grid::gList(
-    body, tail, tail_top_negative, tail_side_negative, text
+    body, tail, tail_top_negative, tail_side_negative, tail_side_positive, text
   )
 
   grid::gTree(label = text, children = msg_list, childrenvp = child_vp)
