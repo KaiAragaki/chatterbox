@@ -13,7 +13,7 @@ texts <- c(
   "Hey",
   "This is just some example text for this R package, so you can see how it looks and test it and stuff.",
   "Oh that's pretty cool!",
-  "In theory, this should support emoji 🌎",
+  "In the future, this will support emoji.\n\n\nIt doesn't currently, though.",
   "I don't know if it'll support images yet though :(",
   "K",
   "Anyway, how's life been?"
