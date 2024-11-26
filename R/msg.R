@@ -26,6 +26,7 @@ msgGrob <- function(text,
   text_col <- ifelse(is_me, theme$text_me, theme$text_you)
   bg <- theme$bg
   label <- str_wrap(text, width = max_char_width)
+  has_newline <- grepl("\n", label)
   # FIXME there's gotta be a better way to do this
   vpname <- paste0(text, round(runif(1), 5))
 
@@ -38,15 +39,15 @@ msgGrob <- function(text,
     height = grid::stringHeight(label) + v_pad,
     just = ifelse(is_me, "right", "left")
   )
-
+  r <- ifelse(has_newline, 1.5, 1.7)
+  xh <- grid::stringHeight("x") * 0.75
   body <- grid::roundrectGrob(
     vp = vpname,
-    r = grid::unit(0.5, units = "snpc"),
+    r = r * xh,
     gp = grid::gpar(fill = fill_col, col = NA),
   )
 
   tail_x <- grid::unit(ifelse(is_me, 1, 0), units = "npc")
-  xh <- grid::stringHeight("x") * 0.75
   tail <- grid::circleGrob(
     vp = vpname,
     x = tail_x, y = xh, r = xh,
