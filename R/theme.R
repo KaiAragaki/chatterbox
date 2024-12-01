@@ -53,7 +53,7 @@ make_theme <- function(text_me = "white",
 # shamefully stolen from https://stackoverflow.com/a/13290832
 are_colors <- function(colors) {
   vapply(colors, function(x) {
-    tryCatch(is.matrix(col2rgb(x)),
+    tryCatch(is.matrix(grDevices::col2rgb(x)),
       error = function(e) FALSE
     )
   }, TRUE)

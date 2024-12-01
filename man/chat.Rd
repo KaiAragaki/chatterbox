@@ -29,6 +29,6 @@ Create a figure of a text conversation
 }
 \examples{
 
-coversation |>
+conversation |>
   chat(me = "Alice")
 }
