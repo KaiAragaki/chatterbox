@@ -28,7 +28,7 @@ chat <- function(data,
   # Color should depend on service -- iMessage should be blue, SMS should be
   # green
   # 'me' will determine who's on the right
-  grid::grid.rect(gp = grid::gpar(fill = theme$bg))
+  grid::grid.rect(gp = grid::gpar(fill = theme$bg, col = theme$bg))
 
   grobs <- mapply(
     msgGrob,
